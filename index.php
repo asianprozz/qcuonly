@@ -42,7 +42,7 @@ if($comand == "/short"){
 
     $params = array(
         "chat_id" => $userChatId,
-        "text" => $output,
+        "text" => $comand" . "$cmd1,
         "parse_mode" => "Markdown"
     );
     send("sendMessage", $params);
