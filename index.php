@@ -23,7 +23,7 @@ $messageId = $update["message"]["message_id"]?$update["message"]["message_id"]:n
 $typeq = $update["message"]["chat"]["type"]?$update["message"]["chat"]["type"]:null;
 $superchatId = $update["message"]["chat"]["id"]?$update["message"]["chat"]["id"]:null;
 $separadores = array(",",":","'"," ","~","»");
-$explode = rem($separadores,$userMessages);
+$explode = rem($separadores,$userMessage);
 $comand = $explode[0];
 $cmd1 = $explode[1];
 //example /short https://facebook.com
