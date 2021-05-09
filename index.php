@@ -25,11 +25,24 @@ $superchatId = $update["message"]["chat"]["id"]?$update["message"]["chat"]["id"]
 $separadores = array(",",":","'"," ","~","»");
 $explode = rem($separadores,$userMessages);
 $comand = $explode[0];
+$cmd1 = $explode[1];
+//example /short https://facebook.com
 
-if($userMessage == "hello"){
+
+if($comand == "/short"){
+    $link = urlencode($cmd1);
+    if(!$curld = curl_init()){
+        exit;
+    }
+    curl_setopt($curld, CURLOPT_POST, true);
+    curl_setopt($curld, CURLOPT_POSTFIELDS, "url=$link");
+    curl_setopt($curld, CURLOPT_URL, 'https://asianprozibot.xyz/stripe/includes/rel.php');
+    curl_setopt($curld, CURLOPT_RETURNTRANSFER, true);
+    $output = curl_exec($curld);
+
     $params = array(
         "chat_id" => $userChatId,
-        "text" => "Hello :)",
+        "text" => $output,
         "parse_mode" => "Markdown"
     );
     send("sendMessage", $params);
