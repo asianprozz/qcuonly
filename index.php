@@ -22,7 +22,7 @@ $userMessage = $update["message"]["text"]?$update["message"]["text"]:null;
 $messageId = $update["message"]["message_id"]?$update["message"]["message_id"]:null;
 $typeq = $update["message"]["chat"]["type"]?$update["message"]["chat"]["type"]:null;
 $superchatId = $update["message"]["chat"]["id"]?$update["message"]["chat"]["id"]:null;
-$separadores = array(",",":","'"," ","~","»");
+$separadores = array(" ");
 $explode = rem($separadores,$userMessage);
 $comand = $explode[0];
 $cmd1 = $explode[1];
@@ -42,7 +42,7 @@ if($comand == "/short"){
 
     $params = array(
         "chat_id" => $userChatId,
-        "text" => $comand." . ".$cmd1." . ". $output,
+        "text" => $comand." . ".$link." . ". $output,
         "parse_mode" => "Markdown"
     );
     send("sendMessage", $params);
