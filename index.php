@@ -19,7 +19,7 @@ $update = file_get_contents('php://input');
 $update = json_decode($update, true);
 $userChatId = $update["message"]["from"]["id"]?$update["message"]["from"]["id"]:null;
 $userMessage = $update["message"]["text"]?$update["message"]["text"]:null;
-$messageId = $update["message"]["message_id")?$update["message"]["message_id"]:null;
+$messageId = $update["message"]["message_id"]?$update["message"]["message_id"]:null;
 $typeq = $update["message"]["chat"]["type"]?$update["message"]["chat"]["type"]:null;
 $superchatId = $update["message"]["chat"]["id"]?$update["message"]["chat"]["id"]:null;
 $separadores = array(",",":","'"," ","~","»");
@@ -29,7 +29,7 @@ $comand = $explode[0];
 if($comand == "hello"){
     $params = array(
         "chat_id" => $userChatId,
-        "text" => "Hello",
+        "text" => "Hello :)",
         "parse_mode" => "Markdown"
     );
     send("sendMessage", $params);
