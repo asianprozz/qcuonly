@@ -31,18 +31,26 @@ $cmd1 = $explode[1];
 
 if($comand == "/short"){
     $link = urlencode($cmd1);
-    if(!$curld = curl_init()){
-        exit;
-    }
-    curl_setopt($curld, CURLOPT_POST, true);
-    curl_setopt($curld, CURLOPT_POSTFIELDS, "url=$link");
-    curl_setopt($curld, CURLOPT_URL, 'https://asianprozibot.xyz/stripe/includes/rel.php');
-    curl_setopt($curld, CURLOPT_RETURNTRANSFER, true);
-    $output = curl_exec($curld);
+    $curl = curl_init();
+curl_setopt($curl, CURLOPT_URL, 'https://www.asianprozibot.xyz/stripe/includes/rel.php');
+curl_setopt($curl, CURLOPT_USERAGENT, $user_agent);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+    'content-type: application/x-www-form-urlencoded; charset=UTF-8',
+'referer: https://www.asianprozibot.xyz/stripe/',
+'x-requested-with: XMLHttpRequest'));
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+curl_setopt($curl, CURLOPT_COOKIEFILE, getcwd().'/cookie.txt');
+curl_setopt($curl, CURLOPT_COOKIEJAR, getcwd().'/cookie.txt');
+curl_setopt($curl, CURLOPT_ENCODING , "gzip");
+curl_setopt($curl, CURLOPT_POSTFIELDS, 'url='.$link.'');
+$urls = curl_exec($curl);
 
     $params = array(
         "chat_id" => $userChatId,
-        "text" => $comand." . ".$link." . ". $output,
+        "text" => "Here is your shortner link => ". $urls,
         "parse_mode" => "Markdown"
     );
     send("sendMessage", $params);
