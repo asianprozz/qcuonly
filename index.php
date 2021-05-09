@@ -1,46 +1,41 @@
 <?php
-$BOT_TOKEN = "1878270846:AAG8V0gX2CiXyiQv5pWmWXtifYbgfJlDPRA";
+$BOT_TOKEN = "1635058710:AAHdNFcBjTQicJhOnpJn5V0PzZFHt8CqpSg";
+//removing uncessary details
 function rem($delimiters,$string)
 {
     $ready = str_replace($delimiters, $delimiters[0], $string);
     $launch = explode($delimiters[0], $ready);
     return  $launch;
 }
-    function getStr($string, $start, $end) {
-        $str = explode($start, $string);
-        $str = explode($end, $str[1]);
-        return $str[0];
-    }
 
-    $update = file_get_contents('php://input');
-    $update = json_decode($update, true);
-    $userChatId = isset($update["message"]["from"]["id"])?$update["message"]["from"]["id"]:null;
-    $userMessages = isset($update["message"]["text"])?$update["message"]["text"]:"Nothing";
-    $messageId = isset($update["message"]["message_id"])?$update["message"]["message_id"]:null;
-    $typeq = isset($update["message"]["chat"]["type"])?$update["message"]["chat"]["type"]:null;
-    $superchatId = isset($update["message"]["chat"]["id"])?$update["message"]["chat"]["id"]:null;
-    $isbot = isset($update["message"]["from"]["is_bot"]);
-    $isbotfor = isset($update["message"]["forward_from"]["is_bot"]);
-    $forwards = isset($update["message"]["forward_from"]);
-    $del = isset($update['message']['reply_to_message']['message_id']);
-    $dela = isset($update['message']['text']);
-    $hex = rand(1,2);
-    $mesx = ($messageId + $hex);
-    $separadores = array(",",":","'"," ","~","»");
-    $explode = rem($separadores,$userMessages);
-    $comand = $explode[0];
- #--------------------# IMPORTANT DONT DELETE
+//getting string from string
+function getStr($string, $start, $end) {
+    $str = explode($start, $string);
+    $str = explode($end, $str[1]);
+    return $str[0];
+}
 
- if($comand == "hello"){
-     $parameters = array(
-         "chat_id" => $userChatId,
-         "text" => "Hello Im url shortner <3",
-         "parse_mode" => "Markdown"
-     );
-     send("sendMessage", $parameters);
- }
+$update = file_get_contents('php://input');
+$update = json_decode($update, true);
+$userChatId = $update["message"]["from"]["id"]?$update["message"]["from"]["id"]:null;
+$userMessage = $update["message"]["text"]?$update["message"]["text"]:null;
+$messageId = $update["message"]["message_id")?$update["message"]["message_id"]:null;
+$typeq = $update["message"]["chat"]["type"]?$update["message"]["chat"]["type"]:null;
+$superchatId = $update["message"]["chat"]["id"]?$update["message"]["chat"]["id"]:null;
+$separadores = array(",",":","'"," ","~","»");
+$explode = rem($separadores,$userMessages);
+$comand = $explode[0];
 
- function send($method, $data){
+if($comand == "hello"){
+    $params = array(
+        "chat_id" => $userChatId,
+        "text" => "Hello",
+        "parse_mode" => "Markdown"
+    );
+    send("sendMessage", $params);
+}
+
+function send($method, $data){
     global $BOT_TOKEN;
     $url = "https://api.telegram.org/bot$BOT_TOKEN/$method";
 
@@ -55,5 +50,6 @@ function rem($delimiters,$string)
     curl_close($curld);
     return $output;
 }
+
 
 ?>
