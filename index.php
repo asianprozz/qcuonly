@@ -26,7 +26,7 @@ $separadores = array(",",":","'"," ","~","»");
 $explode = rem($separadores,$userMessages);
 $comand = $explode[0];
 
-if($comand == "hello"){
+if($userMessage == "hello"){
     $params = array(
         "chat_id" => $userChatId,
         "text" => "Hello :)",
